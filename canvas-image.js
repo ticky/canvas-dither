@@ -1,25 +1,66 @@
-var displayCanvas, displayContext, displayImage, displayImageData;
+var displayCanvas, displayContext, displayImage, displayImageData, originalImageData;
 
-function draw(currenty)
+function draw()
 {
 
-	for (var currentx = 0; currentx < displayContext.canvas.width; currentx++)
+	displayImage			= new Image();
+	displayImage.src		= 'target.png';
+
+	displayCanvas.width		= displayImage.width;
+	displayCanvas.height	= displayImage.height;
+
+	displayContext			= displayCanvas.getContext('2d');
+
+	displayContext.drawImage(displayImage, 0, 0);
+
+	displayImageData		= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);	
+
+	if (document.getElementById('rdo_lum').checked == true)
 	{
 
-		tmpcolorlum = (1 - ( 0.299 * (displayImageData[((currenty)*displayContext.canvas.width)+currentx+(3 * (currentx + (currenty * displayContext.canvas.width)))]/255) + 0.587 * (displayImageData[((currenty)*displayContext.canvas.width)+currentx+(3 * (currentx + (currenty * displayContext.canvas.width)))+1]/255) + 0.114 * (displayImageData[((currenty)*displayContext.canvas.width)+currentx+(3 * (currentx + (currenty * displayContext.canvas.width)))+2]/255)/255));
+		greyscale_luminance(displayImageData);
 
-		displayContext.fillStyle = 'rgb('+Math.round((1-tmpcolorlum)*255)+','+Math.round((1-tmpcolorlum)*255)+','+Math.round((1-tmpcolorlum)*255)+')';
+	}
+	else if (document.getElementById('rdo_ave').checked == true)
+	{
 
-		displayContext.fillRect(currentx, currenty, 1, 1);
+		greyscale_average(displayImageData);
 
 	}
 
-	if(currenty < displayContext.canvas.height)
+	displayContext.putImageData(displayImageData, 0, 0);
+
+}
+
+// Convert image data to greyscale based on luminance.
+function greyscale_luminance(image)
+{
+
+	for (var i = 0; i <= image.data.length; i += 4)
 	{
 
-		setTimeout(function() { draw(currenty+1); }, 0);
+		image.data[i] = image.data[i + 1] = image.data[i + 2] =
+			Math.round(image.data[i] * 0.21 + image.data[i + 1] * 0.71 + image.data[i + 2] * 0.07);
 
 	}
+
+	return image;
+
+}
+
+// Convert image data to greyscale based on average of R, G and B values.
+function greyscale_average(image)
+{
+
+	for (var i = 0; i <= image.data.length; i += 4)
+	{
+
+		image.data[i] = image.data[i + 1] = image.data[i + 2] =
+			Math.round((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3);
+
+	}
+
+	return image;
 
 }
 
@@ -32,19 +73,7 @@ function setup()
 	if (displayCanvas.getContext)
 	{
 
-		document.getElementById('renderbtn').onclick	= function() { draw(0); };
-
-		displayImage			= new Image();
-		displayImage.src		= 'target.png';
-
-		displayCanvas.width		= displayImage.width;
-		displayCanvas.height	= displayImage.height;
-
-		displayContext			= displayCanvas.getContext('2d');
-
-		displayContext.drawImage(displayImage, 0, 0);
-
-		displayImageData		= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height).data;
+		document.getElementById('renderbtn').onclick	= function() { draw(); };
 
 	}
 	else

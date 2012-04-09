@@ -7,7 +7,9 @@
 <body>
 	<div>
 		<form onsubmit="return false;">
-			<input type="submit" name="render" id="renderbtn" value="Render" /><br/>
+			<input type="radio" name="greyscale_method" id="rdo_lum" value="Luminance" checked="true" /><label for="rdo_lum">Luminance</label><br/>
+			<input type="radio" name="greyscale_method" id="rdo_ave" value="Average" /><label for="rdo_ave">Average</label><br/>
+			<input type="submit" id="renderbtn" value="Render" /><br/>
 		</form>
 		<canvas id="display">
 			This can only be shown when your browser supports Canvas.

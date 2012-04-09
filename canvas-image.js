@@ -1,10 +1,10 @@
-var displayCanvas, displayContext, displayImage, displayImageData, originalImageData;
+var displayCanvas, displayContext, displayImage, displayImageData;
 
 function draw()
 {
 
 	displayImage			= new Image();
-	displayImage.src		= 'target.png';
+	displayImage.src		= 'target.jpg';
 
 	displayCanvas.width		= displayImage.width;
 	displayCanvas.height	= displayImage.height;

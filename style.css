@@ -6,9 +6,18 @@ html,body {
 	background-color: #ededed;
 }
 
-#displayImage {
-	margin:			0 auto;
+#imageWrapper {
+	text-align:center;
 	margin-bottom:	2em;
+}
+
+#imageWell {
+	background-color: #ededed;
+	display: inline-block;
+	padding: 1em;
+	border: 1px solid #7c7c7c;
+	box-shadow: 0 0.2em 0.2em #AAA inset;
+	border-radius: 0.5em;
 }
 
 dl.preferences {

@@ -1,19 +1,19 @@
-var displayCanvas, displayContext, displayImage, displayImageData;
+var imageDisplay, displayCanvas, displayContext, displayImage, displayImageData;
 
 function draw()
 {
 
-	displayImage			= new Image();
-	displayImage.src		= 'target.jpg';
+	displayImage				= new Image();
+	displayImage.src			= 'target.jpg';
 
-	displayCanvas.width		= displayImage.width;
-	displayCanvas.height	= displayImage.height;
+	displayCanvas.width			= displayImage.width;
+	displayCanvas.height		= displayImage.height;
 
-	displayContext			= displayCanvas.getContext('2d');
+	displayContext				= displayCanvas.getContext('2d');
 
 	displayContext.drawImage(displayImage, 0, 0);
 
-	displayImageData		= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);
+	displayImageData			= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);
 
 	if (document.getElementById('rdo_lum').checked == true)
 	{
@@ -32,6 +32,8 @@ function draw()
 
 
 	displayContext.putImageData(displayImageData, 0, 0);
+
+	imageDisplay.src = displayCanvas.toDataURL("image/png");
 
 }
 
@@ -109,7 +111,8 @@ function setup()
 {
 
 	// Detect Canvas Support
-	displayCanvas = document.getElementById('display');
+	displayCanvas	= document.getElementById('displayCanvas');
+	imageDisplay	= document.getElementById('displayImage');
 
 	if (displayCanvas.getContext)
 	{

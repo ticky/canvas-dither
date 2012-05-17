@@ -5,7 +5,10 @@ html,body {
 	-webkit-font-smoothing: antialiased;
 }
 
+#displayCanvas {
+	display: none;
+}
+
 h1 {
 	margin: 0;
-	width
 }

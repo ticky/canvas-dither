@@ -28,12 +28,39 @@ function draw()
 
 	}
 
-	dither_atkinson(displayImageData);
+	if (document.getElementById('rdo_atkinson').checked == true)
+	{
 
+		dither_atkinson(displayImageData);
+
+	}
+	else if (document.getElementById('rdo_threshold').checked == true)
+	{
+
+		dither_threshold(displayImageData);
+
+	}
 
 	displayContext.putImageData(displayImageData, 0, 0);
 
-	imageDisplay.src = displayCanvas.toDataURL("image/png");
+	if (document.getElementById('rdo_png').checked == true)
+	{
+
+		imageDisplay.src = displayCanvas.toDataURL("image/png");
+
+	}
+	else if (document.getElementById('rdo_gif').checked == true)
+	{
+
+		imageDisplay.src = displayCanvas.toDataURL("image/gif");
+
+	}
+	else if (document.getElementById('rdo_jpeg').checked == true)
+	{
+
+		imageDisplay.src = displayCanvas.toDataURL("image/jpeg");
+
+	}
 
 }
 
@@ -105,6 +132,14 @@ function dither_atkinson(image)
 	}
 
 	return image.data;
+}
+
+function dither_threshold(image)
+{
+	for (var i = 0; i <= image.data.length; i += 4)
+	{
+		image.data[i] = image.data[i + 1] = image.data[i + 2] = (parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10) > document.getElementById('threshold').value) ? 255 : 0;
+	}
 }
 
 function setup()

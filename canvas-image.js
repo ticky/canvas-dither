@@ -136,9 +136,11 @@ function dither_atkinson(image)
 
 function dither_threshold(image)
 {
+	var threshold_value = parseInt(document.getElementById('threshold').value);
+
 	for (var i = 0; i <= image.data.length; i += 4)
 	{
-		image.data[i] = image.data[i + 1] = image.data[i + 2] = (parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10) > document.getElementById('threshold').value) ? 255 : 0;
+		image.data[i] = image.data[i + 1] = image.data[i + 2] = (parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10) > threshold_value) ? 255 : 0;
 	}
 }
 

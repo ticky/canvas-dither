@@ -13,7 +13,7 @@ function draw()
 
 	displayContext.drawImage(displayImage, 0, 0);
 
-	displayImageData		= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);	
+	displayImageData		= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);
 
 	if (document.getElementById('rdo_lum').checked == true)
 	{
@@ -121,9 +121,9 @@ function setup()
 	{
 
 		alert("Hi there, you're using an older browser which doesn't support Canvas, so unfortunately I can't show you this demo. Sorry!");
-		
+
 	}
-	
+
 }
 
 window.onload = setup;

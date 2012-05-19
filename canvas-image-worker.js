@@ -100,10 +100,8 @@ function dither_atkinson(image, imageWidth)
 	return image.data;
 }
 
-function dither_threshold(image)
+function dither_threshold(image, threshold_value)
 {
-	var threshold_value = 128; // parseInt(document.getElementById('threshold').value);
-
 	for (var i = 0; i <= image.data.length; i += 4)
 	{
 		image.data[i] = image.data[i + 1] = image.data[i + 2] = (parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10) > threshold_value) ? 255 : 0;

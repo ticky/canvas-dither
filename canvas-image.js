@@ -25,7 +25,7 @@ worker.addEventListener('message', function(e) {
 
 	displayContext				= displayCanvas.getContext('2d');
 
-	displayContext.putImageData(displayImageData, 0, 0);
+	displayContext.putImageData(e.data.imageData, 0, 0);
 
 	if (document.getElementById('rdo_png').checked == true)
 	{

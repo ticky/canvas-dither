@@ -16,7 +16,22 @@ function draw()
 
 	displayImageData			= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);
 
-	worker.postMessage({imageData: displayImageData});
+	var tmpGreyscaleMethod		= (document.getElementById('rdo_lum').checked) ? "luminance" : (document.getElementById('rdo_ave').checked) ? "average" : "luminance" ;
+	var tmpDitherMethod			= (document.getElementById('rdo_atkinson').checked) ? "atkinson" : (document.getElementById('rdo_threshold').checked) ? "threshold" : "atkinson" ;
+	var tmpDitherThreshold		= document.getElementById('threshold').value;
+
+	worker.postMessage( {
+			image: {
+				data:				displayImageData,
+				width:				displayCanvas.width,
+				height:				displayCanvas.height
+			},
+			processing: {
+				greyscaleMethod:	tmpGreyscaleMethod,
+				ditherMethod:		tmpDitherMethod,
+				ditherThreshold:	tmpDitherThreshold
+			}
+		});
 
 }
 
@@ -25,7 +40,7 @@ worker.addEventListener('message', function(e) {
 
 	displayContext				= displayCanvas.getContext('2d');
 
-	displayContext.putImageData(e.data.imageData, 0, 0);
+	displayContext.putImageData(e.data.image.data, 0, 0);
 
 	if (document.getElementById('rdo_png').checked == true)
 	{

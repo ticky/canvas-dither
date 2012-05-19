@@ -1,33 +1,33 @@
-function draw(image_data)
+function draw(data)
 {
 
-	/*if (greyscale_method == "luminance")
-	{*/
-
-		greyscale_luminance(image_data);
-
-	/*}
-	else if (greyscale_method == "average")
+	if (data.processing.greyscaleMethod == "luminance")
 	{
 
-		greyscale_average(image_data);
-
-	}*/
-
-	/*if (dither_method == "atkinson")
-	{
-
-		dither_atkinson(image_data);
+		greyscale_luminance(data.image.data);
 
 	}
-	else if (dither_method == "threshold")
-	{*/
+	else if (data.processing.greyscaleMethod == "average")
+	{
 
-		dither_threshold(image_data);
+		greyscale_average(data.image.data);
 
-	/*}*/
+	}
 
-	return image_data;
+	if (data.processing.ditherMethod == "atkinson")
+	{
+
+		dither_atkinson(data.image.data, data.image.width);
+
+	}
+	else if (data.processing.ditherMethod == "threshold")
+	{
+
+		dither_threshold(data.image.data, data.processing.ditherThreshold);
+
+	}
+
+	return data;
 
 }
 
@@ -62,11 +62,10 @@ function greyscale_average(image)
 }
 
 // Apply Atkinson Dither to Image Data
-function dither_atkinson(image)
+function dither_atkinson(image, imageWidth)
 {
 
-	imageWidth	= image.width;
-	imageLength	= image.data.length
+	imageLength	= image.data.length;
 
 	for (currentPixel = 0; currentPixel <= imageLength; currentPixel += 4)
 	{
@@ -112,29 +111,5 @@ function dither_threshold(image)
 }
 
 self.addEventListener('message', function (e) {
-  self.postMessage({imageData: draw(e.data.imageData)});
+	self.postMessage(draw(e.data));
 }, false);
-
-/*function setup()
-{
-
-	// Detect Canvas Support
-	displayCanvas	= document.getElementById('displayCanvas');
-	imageDisplay	= document.getElementById('displayImage');
-
-	if (displayCanvas.getContext)
-	{
-
-		document.getElementById('renderbtn').onclick	= function() { draw(); };
-
-	}
-	else
-	{
-
-		alert("Hi there, you're using an older browser which doesn't support Canvas, so unfortunately I can't show you this demo. Sorry!");
-
-	}
-
-}
-
-window.onload = setup;*/

@@ -4,13 +4,14 @@
 Simple demo of image processing in Javascript using HTML5 and Canvas.
 
 ## Recent Changes
+- Moved processing to a Web Worker
 - Now able to output images in three different formats! (Assuming your browser supports it)
 - Renders to an <img> element rather than just to a canvas
 - Can filter pixels using a simple threshold as well as Atkinson dithering (which, obviously, is what you're here for)
 
 ## Future Plans
+- Create fallback for when web workers are not available.
 - Enable drag-and-drop custom image selection
-- Move processing to a Web Worker where available
 - Improve compatibility
 - Probably going to re-style to look more like classic Mac OS (currently borrows a lot of design language and ideas from OS X, like [fractal-thing](https://github.com/ticky/fractal-thing).)
 

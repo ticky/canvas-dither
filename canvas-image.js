@@ -1,4 +1,5 @@
 var imageDisplay, displayCanvas, displayContext, displayImage, displayImageData;
+var worker = new Worker('canvas-image-worker.js');
 
 function draw()
 {
@@ -15,31 +16,14 @@ function draw()
 
 	displayImageData			= displayContext.getImageData(0,0,displayCanvas.width,displayCanvas.height);
 
-	if (document.getElementById('rdo_lum').checked == true)
-	{
+	worker.postMessage({imageData: displayImageData});
 
-		greyscale_luminance(displayImageData);
+}
 
-	}
-	else if (document.getElementById('rdo_ave').checked == true)
-	{
+// Oh dear, this isn't good.
+worker.addEventListener('message', function(e) {
 
-		greyscale_average(displayImageData);
-
-	}
-
-	if (document.getElementById('rdo_atkinson').checked == true)
-	{
-
-		dither_atkinson(displayImageData);
-
-	}
-	else if (document.getElementById('rdo_threshold').checked == true)
-	{
-
-		dither_threshold(displayImageData);
-
-	}
+	displayContext				= displayCanvas.getContext('2d');
 
 	displayContext.putImageData(displayImageData, 0, 0);
 
@@ -62,87 +46,7 @@ function draw()
 
 	}
 
-}
-
-// Convert image data to greyscale based on luminance.
-function greyscale_luminance(image)
-{
-
-	for (var i = 0; i <= image.data.length; i += 4)
-	{
-
-		image.data[i] = image.data[i + 1] = image.data[i + 2] = parseInt(image.data[i] * 0.21 + image.data[i + 1] * 0.71 + image.data[i + 2] * 0.07, 10);
-
-	}
-
-	return image;
-
-}
-
-// Convert image data to greyscale based on average of R, G and B values.
-function greyscale_average(image)
-{
-
-	for (var i = 0; i <= image.data.length; i += 4)
-	{
-
-		image.data[i] = image.data[i + 1] = image.data[i + 2] = parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10);
-
-	}
-
-	return image;
-
-}
-
-// Apply Atkinson Dither to Image Data
-function dither_atkinson(image)
-{
-
-	imageWidth	= image.width;
-	imageLength	= image.data.length
-
-	for (currentPixel = 0; currentPixel <= imageLength; currentPixel += 4)
-	{
-
-		if (image.data[currentPixel] <= 128)
-		{
-
-			newPixelColour = 0;
-
-		}
-		else
-		{
-
-			newPixelColour = 255;
-
-		}
-
-		err = parseInt((image.data[currentPixel] - newPixelColour) / 8, 10);
-		image.data[currentPixel] = newPixelColour;
-
-		image.data[currentPixel + 4]						+= err;
-		image.data[currentPixel + 8]						+= err;
-		image.data[currentPixel + (4 * imageWidth) - 4]		+= err;
-		image.data[currentPixel + (4 * imageWidth)]			+= err;
-		image.data[currentPixel + (4 * imageWidth) + 4]		+= err;
-		image.data[currentPixel + (8 * imageWidth)]			+= err;
-
-		image.data[currentPixel + 1] = image.data[currentPixel + 2] = image.data[currentPixel];
-
-	}
-
-	return image.data;
-}
-
-function dither_threshold(image)
-{
-	var threshold_value = parseInt(document.getElementById('threshold').value);
-
-	for (var i = 0; i <= image.data.length; i += 4)
-	{
-		image.data[i] = image.data[i + 1] = image.data[i + 2] = (parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10) > threshold_value) ? 255 : 0;
-	}
-}
+}, false);
 
 function setup()
 {

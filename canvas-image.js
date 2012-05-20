@@ -35,7 +35,6 @@ function draw()
 
 }
 
-// Oh dear, this isn't good.
 worker.addEventListener('message', function(e) {
 
 	displayContext				= displayCanvas.getContext('2d');

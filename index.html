@@ -17,20 +17,21 @@
 		</dd>
 		<dt>Greyscale Conversion Method</dt>
 		<dd>
-			<input type="radio" name="greyscale_method" id="rdo_lum" value="Luminance" checked="true" /><label for="rdo_lum">Luminance</label><br/>
-			<input type="radio" name="greyscale_method" id="rdo_ave" value="Average" /><label for="rdo_ave">Average</label><br/>
+			<input type="radio" name="greyscale_method" id="rdo_greyscale_luminance" value="Luminance" checked="true" /><label for="rdo_greyscale_luminance">Luminance</label><br/>
+			<input type="radio" name="greyscale_method" id="rdo_greyscale_average" value="RGB Average" /><label for="rdo_greyscale_average">RGB Average</label><br/>
+			<input type="radio" name="greyscale_method" id="rdo_greyscale_disable" value="Disabled" /><label for="rdo_greyscale_disable">Disabled</label><br/>
 		</dd>
 		<dt>Dithering Method</dt>
 		<dd>
-			<input type="radio" name="dither_method" id="rdo_atkinson" value="Atkinson Dithering" checked="true" /><label for="rdo_atkinson">Atkinson Dithering</label><br/>
-			<input type="radio" name="dither_method" id="rdo_threshold" value="Threshold" /><label for="rdo_threshold">Threshold</label><br/>
+			<input type="radio" name="dither_method" id="rdo_dither_atkinson" value="Atkinson Dithering" checked="true" /><label for="rdo_atkinson">Atkinson Dithering</label><br/>
+			<input type="radio" name="dither_method" id="rdo_dither_threshold" value="Threshold" /><label for="rdo_threshold">Threshold</label><br/>
 			<input id="threshold" type="range" min="0" max="255" value="127" step="1" title="Brightness threshold" />
 		</dd>
 		<dt>Output Format</dt>
 		<dd>
-			<input type="radio" name="output_format" id="rdo_png" value="PNG" checked="true" /><label for="rdo_png">PNG</label><br/>
-			<input type="radio" name="output_format" id="rdo_gif" value="GIF" /><label for="rdo_gif">GIF</label><br/>
-			<input type="radio" name="output_format" id="rdo_jpeg" value="JPEG" /><label for="rdo_jpeg">JPEG</label><br/>
+			<input type="radio" name="output_format" id="rdo_format_png" value="PNG" checked="true" /><label for="rdo_png">PNG</label><br/>
+			<input type="radio" name="output_format" id="rdo_format_gif" value="GIF" /><label for="rdo_gif">GIF</label><br/>
+			<input type="radio" name="output_format" id="rdo_format_jpeg" value="JPEG" /><label for="rdo_jpeg">JPEG</label><br/>
 		</dd>
 		<input type="submit" id="renderbtn" value="Render" /><br/>
 	</dl>

@@ -18,6 +18,11 @@ html,body {
 	border: 1px solid #7c7c7c;
 	box-shadow: 0 0.2em 0.2em #AAA inset;
 	border-radius: 0.5em;
+	min-width: 320px;
+	min-height: 240px;
+	max-width: 90%;
+	max-height: 768px;
+	overflow: scroll;
 }
 
 dl.preferences {

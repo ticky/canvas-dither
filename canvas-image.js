@@ -1,11 +1,12 @@
 var imageDisplay, displayCanvas, displayContext, displayImage, displayImageData;
+var originalImage;
 var worker = new Worker('canvas-image-worker.js');
+var fileReader = new FileReader();
 
-function draw()
-{
+function draw() {
 
 	displayImage				= new Image();
-	displayImage.src			= 'target.jpg';
+	displayImage.src			= originalImage;
 
 	displayCanvas.width			= displayImage.width;
 	displayCanvas.height		= displayImage.height;
@@ -35,26 +36,21 @@ function draw()
 
 }
 
-worker.addEventListener('message', function(e) {
+worker.addEventListener('message', function (e) {
 
 	displayContext				= displayCanvas.getContext('2d');
 
 	displayContext.putImageData(e.data.image.data, 0, 0);
 
-	if (document.getElementById('rdo_png').checked == true)
-	{
+	if (document.getElementById('rdo_png').checked == true) {
 
 		imageDisplay.src = displayCanvas.toDataURL("image/png");
 
-	}
-	else if (document.getElementById('rdo_gif').checked == true)
-	{
+	} else if (document.getElementById('rdo_gif').checked == true) {
 
 		imageDisplay.src = displayCanvas.toDataURL("image/gif");
 
-	}
-	else if (document.getElementById('rdo_jpeg').checked == true)
-	{
+	} else if (document.getElementById('rdo_jpeg').checked == true) {
 
 		imageDisplay.src = displayCanvas.toDataURL("image/jpeg");
 
@@ -62,21 +58,30 @@ worker.addEventListener('message', function(e) {
 
 }, false);
 
-function setup()
-{
+fileReader.onload = function (e) {
+	originalImage = e.target.result;
+	document.getElementById('displayImage').src = e.target.result;
+}
+
+function handleFileSelect (e) {
+	var files = e.target.files;
+
+    fileReader.readAsDataURL(e.target.files[0]);
+}
+
+function setup() {
 
 	// Detect Canvas Support
 	displayCanvas	= document.getElementById('displayCanvas');
 	imageDisplay	= document.getElementById('displayImage');
 
-	if (displayCanvas.getContext)
-	{
+	if (displayCanvas.getContext) {
 
 		document.getElementById('renderbtn').onclick	= function() { draw(); };
+		document.getElementById('fileSelect').addEventListener('change', handleFileSelect, false);
+		originalImage = document.getElementById('displayImage').src;
 
-	}
-	else
-	{
+	} else {
 
 		alert("Hi there, you're using an older browser which doesn't support Canvas, so unfortunately I can't show you this demo. Sorry!");
 

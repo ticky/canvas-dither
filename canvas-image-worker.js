@@ -1,83 +1,63 @@
-function draw(data)
-{
+function draw(data) {
 
-	if (data.processing.greyscaleMethod == "luminance")
-	{
+	if (data.processing.greyscaleMethod == "luminance") {
 
 		greyscale_luminance(data.image.data);
 
-	}
-	else if (data.processing.greyscaleMethod == "average")
-	{
+	} else if (data.processing.greyscaleMethod == "average") {
 
 		greyscale_average(data.image.data);
 
 	}
 
-	if (data.processing.ditherMethod == "atkinson")
-	{
+	if (data.processing.ditherMethod == "atkinson") {
 
 		dither_atkinson(data.image.data, data.image.width);
 
-	}
-	else if (data.processing.ditherMethod == "threshold")
-	{
+	} else if (data.processing.ditherMethod == "threshold") {
 
 		dither_threshold(data.image.data, data.processing.ditherThreshold);
-
 	}
 
 	return data;
-
 }
 
 // Convert image data to greyscale based on luminance.
-function greyscale_luminance(image)
-{
+function greyscale_luminance(image) {
 
-	for (var i = 0; i <= image.data.length; i += 4)
-	{
+	for (var i = 0; i <= image.data.length; i += 4) {
 
 		image.data[i] = image.data[i + 1] = image.data[i + 2] = parseInt(image.data[i] * 0.21 + image.data[i + 1] * 0.71 + image.data[i + 2] * 0.07, 10);
 
 	}
 
 	return image;
-
 }
 
 // Convert image data to greyscale based on average of R, G and B values.
-function greyscale_average(image)
-{
+function greyscale_average(image) {
 
-	for (var i = 0; i <= image.data.length; i += 4)
-	{
+	for (var i = 0; i <= image.data.length; i += 4) {
 
 		image.data[i] = image.data[i + 1] = image.data[i + 2] = parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10);
 
 	}
 
 	return image;
-
 }
 
 // Apply Atkinson Dither to Image Data
-function dither_atkinson(image, imageWidth)
-{
+function dither_atkinson(image, imageWidth) {
 
 	imageLength	= image.data.length;
 
-	for (currentPixel = 0; currentPixel <= imageLength; currentPixel += 4)
-	{
+	for (currentPixel = 0; currentPixel <= imageLength; currentPixel += 4) {
 
-		if (image.data[currentPixel] <= 128)
-		{
+		if (image.data[currentPixel] <= 128) {
 
 			newPixelColour = 0;
 
-		}
-		else
-		{
+		} else {
 
 			newPixelColour = 255;
 
@@ -100,11 +80,12 @@ function dither_atkinson(image, imageWidth)
 	return image.data;
 }
 
-function dither_threshold(image, threshold_value)
-{
-	for (var i = 0; i <= image.data.length; i += 4)
-	{
+function dither_threshold(image, threshold_value) {
+
+	for (var i = 0; i <= image.data.length; i += 4) {
+
 		image.data[i] = image.data[i + 1] = image.data[i + 2] = (parseInt((image.data[i] + image.data[i + 1] + image.data[i + 2]) / 3, 10) > threshold_value) ? 255 : 0;
+
 	}
 }
 

@@ -4,6 +4,7 @@
 Simple demo of image processing in Javascript using HTML5 and Canvas.
 
 ## Recent Changes
+- Now allows for choosing your own image to process
 - Moved processing to a Web Worker
 - Now able to output images in three different formats! (Assuming your browser supports it)
 - Renders to an <img> element rather than just to a canvas

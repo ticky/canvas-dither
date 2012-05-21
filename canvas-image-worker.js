@@ -75,8 +75,6 @@ function dither_atkinson(image, imageWidth, offset) {
 		image.data[currentPixel + (4 * imageWidth) + 4]		+= err;
 		image.data[currentPixel + (8 * imageWidth)]			+= err;
 
-		//image.data[currentPixel + 1] = image.data[currentPixel + 2] = image.data[currentPixel];
-
 	}
 
 	return image.data;

@@ -35,7 +35,7 @@ function greyscale_luminance (image) {
 }
 
 // Convert image data to greyscale based on average of R, G and B values.
-function greyscale_average(image) {
+function greyscale_average (image) {
 
 	for (var i = 0; i <= image.data.length; i += 4) {
 

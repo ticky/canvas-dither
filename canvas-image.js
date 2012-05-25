@@ -1,6 +1,6 @@
 var imageDisplay, displayCanvas, displayContext, displayImage, displayImageData, originalImage;
 var worker		= new Worker('canvas-image-worker.js');
-var FileReader	= new FileReader();
+var fileReader	= new FileReader();
 
 function draw () {
 

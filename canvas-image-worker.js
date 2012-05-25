@@ -12,9 +12,7 @@ function draw (data) {
 
 	if (data.processing.ditherMethod == "atkinson") {
 
-		dither_atkinson(data.image.data, data.image.width, 0);
-		dither_atkinson(data.image.data, data.image.width, 1);
-		dither_atkinson(data.image.data, data.image.width, 2);
+		dither_atkinson(data.image.data, data.image.width, (data.processing.greyscaleMethod == ""));
 
 	} else if (data.processing.ditherMethod == "threshold") {
 
@@ -49,11 +47,18 @@ function greyscale_average(image) {
 }
 
 // Apply Atkinson Dither to Image Data
-function dither_atkinson (image, imageWidth, offset) {
+function dither_atkinson (image, imageWidth, drawColour) {
+	skipPixels = 4;
+
+	if (!drawColour)
+		drawColour = false;
+
+	if(drawColour == true)
+		skipPixels = 1;
 
 	imageLength	= image.data.length;
 
-	for (currentPixel = offset; currentPixel <= imageLength; currentPixel += 4) {
+	for (currentPixel = 0; currentPixel <= imageLength; currentPixel += skipPixels) {
 
 		if (image.data[currentPixel] <= 128) {
 
@@ -74,6 +79,9 @@ function dither_atkinson (image, imageWidth, offset) {
 		image.data[currentPixel + (4 * imageWidth)]			+= err;
 		image.data[currentPixel + (4 * imageWidth) + 4]		+= err;
 		image.data[currentPixel + (8 * imageWidth)]			+= err;
+
+		if (drawColour == false)
+			image.data[currentPixel + 1] = image.data[currentPixel + 2] = image.data[currentPixel];
 
 	}
 

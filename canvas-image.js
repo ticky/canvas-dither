@@ -20,8 +20,10 @@ function draw () {
 	var tmpDitherMethod			= (document.getElementById('rdo_dither_atkinson').checked) ? "atkinson" : (document.getElementById('rdo_dither_threshold').checked) ? "threshold" : "atkinson" ;
 	var tmpDitherThreshold		= document.getElementById('threshold').value;
 
-	console.log("Starting Web Worker for image (" + displayCanvas.width + "x" + displayCanvas.height + ", Greyscale Method: " + tmpGreyscaleMethod + ", Dither Method: " + tmpDitherMethod + ")");
-	console.time("Web worker took");
+	if (window.console && window.console.time) {
+		console.log("Starting Web Worker for image (" + displayCanvas.width + "x" + displayCanvas.height + ", Greyscale Method: " + tmpGreyscaleMethod + ", Dither Method: " + tmpDitherMethod + ")");
+		console.time("Web worker took");
+	}
 
 	worker.postMessage( {
 			image: {
@@ -42,7 +44,8 @@ worker.addEventListener('message', function (e) {
 
 	displayContext			= displayCanvas.getContext('2d');
 
-	console.timeEnd("Web worker took");
+	if (window.console && window.console.time)
+		console.timeEnd("Web worker took");
 
 	displayContext.putImageData(e.data.image.data, 0, 0);
 

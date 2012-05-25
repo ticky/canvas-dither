@@ -1,4 +1,4 @@
-function draw(data) {
+function draw (data) {
 
 	if (data.processing.greyscaleMethod == "luminance") {
 
@@ -25,7 +25,7 @@ function draw(data) {
 }
 
 // Convert image data to greyscale based on luminance.
-function greyscale_luminance(image) {
+function greyscale_luminance (image) {
 
 	for (var i = 0; i <= image.data.length; i += 4) {
 
@@ -49,7 +49,7 @@ function greyscale_average(image) {
 }
 
 // Apply Atkinson Dither to Image Data
-function dither_atkinson(image, imageWidth, offset) {
+function dither_atkinson (image, imageWidth, offset) {
 
 	imageLength	= image.data.length;
 
@@ -80,7 +80,7 @@ function dither_atkinson(image, imageWidth, offset) {
 	return image.data;
 }
 
-function dither_threshold(image, threshold_value) {
+function dither_threshold (image, threshold_value) {
 
 	for (var i = 0; i <= image.data.length; i += 4) {
 

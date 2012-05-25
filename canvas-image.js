@@ -1,9 +1,8 @@
-var imageDisplay, displayCanvas, displayContext, displayImage, displayImageData;
-var originalImage;
-var worker = new Worker('canvas-image-worker.js');
-var fileReader = new FileReader();
+var imageDisplay, displayCanvas, displayContext, displayImage, displayImageData, originalImage;
+var worker		= new Worker('canvas-image-worker.js');
+var FileReader	= new FileReader();
 
-function draw() {
+function draw () {
 
 	displayImage				= new Image();
 	displayImage.src			= originalImage;
@@ -38,21 +37,21 @@ function draw() {
 
 worker.addEventListener('message', function (e) {
 
-	displayContext				= displayCanvas.getContext('2d');
+	displayContext			= displayCanvas.getContext('2d');
 
 	displayContext.putImageData(e.data.image.data, 0, 0);
 
 	if (document.getElementById('rdo_format_png').checked == true) {
 
-		imageDisplay.src = displayCanvas.toDataURL("image/png");
+		imageDisplay.src	= displayCanvas.toDataURL("image/png");
 
 	} else if (document.getElementById('rdo_format_gif').checked == true) {
 
-		imageDisplay.src = displayCanvas.toDataURL("image/gif");
+		imageDisplay.src	= displayCanvas.toDataURL("image/gif");
 
 	} else if (document.getElementById('rdo_format_jpeg').checked == true) {
 
-		imageDisplay.src = displayCanvas.toDataURL("image/jpeg");
+		imageDisplay.src	= displayCanvas.toDataURL("image/jpeg");
 
 	}
 
@@ -69,10 +68,10 @@ function handleFileSelect (e) {
     fileReader.readAsDataURL(e.target.files[0]);
 }
 
-function setup() {
+function setup () {
 
 	// Detect Canvas Support
-	displayCanvas	= document.getElementById('displayCanvas');
+	displayCanvas	= document.createElement('canvas');
 	imageDisplay	= document.getElementById('displayImage');
 
 	if (displayCanvas.getContext) {

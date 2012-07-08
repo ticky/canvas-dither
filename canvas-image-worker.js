@@ -19,6 +19,12 @@ function draw (data) {
 		dither_threshold(data.image.data, data.processing.ditherThreshold);
 	}
 
+	if (data.processing.replaceColours == true) {
+
+		replace_colours(data.image.data, data.processing.replaceColourMap.black, data.processing.replaceColourMap.white);
+
+	}
+
 	return data;
 }
 
@@ -97,6 +103,19 @@ function dither_threshold (image, threshold_value) {
 		image.data[i + 2]	= (image.data[i + 2] > threshold_value) ? 255 : 0;
 
 	}
+}
+
+function replace_colours (image, black, white) {
+
+	for (var i = 0; i <= image.data.length; i += 4) {
+
+		image.data[i]		= (image.data[i] < 127) ? black.r : white.r;
+		image.data[i + 1]	= (image.data[i + 1] < 127) ? black.g : white.g;
+		image.data[i + 2]	= (image.data[i + 2] < 127) ? black.b : white.b;
+		image.data[i + 3]	= (((image.data[i]+image.data[i+1]+image.data[i+2])/3) < 127) ? black.a : white.a;
+
+	}
+
 }
 
 self.addEventListener('message', function (e) {

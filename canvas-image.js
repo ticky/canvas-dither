@@ -19,6 +19,19 @@ function draw () {
 	var tmpGreyscaleMethod		= (document.getElementById('rdo_greyscale_luminance').checked) ? "luminance" : (document.getElementById('rdo_greyscale_average').checked) ? "average" : (document.getElementById('rdo_greyscale_disable').checked) ? "" : "luminance" ;
 	var tmpDitherMethod			= (document.getElementById('rdo_dither_atkinson').checked) ? "atkinson" : (document.getElementById('rdo_dither_threshold').checked) ? "threshold" : "atkinson" ;
 	var tmpDitherThreshold		= document.getElementById('threshold').value;
+	var tmpReplaceColours 		= document.getElementById('chk_replace_colours').checked;
+	var tmpReplaceBlack = {
+		r: document.getElementById('rep_black_r').value,
+		g: document.getElementById('rep_black_g').value,
+		b: document.getElementById('rep_black_b').value,
+		a: document.getElementById('rep_black_a').value
+	}
+	var tmpReplaceWhite = {
+		r: document.getElementById('rep_white_r').value,
+		g: document.getElementById('rep_white_g').value,
+		b: document.getElementById('rep_white_b').value,
+		a: document.getElementById('rep_white_a').value
+	}
 
 	if (window.console && window.console.time) {
 		console.log("Starting Web Worker for image (" + displayCanvas.width + "x" + displayCanvas.height + ", Greyscale Method: " + tmpGreyscaleMethod + ", Dither Method: " + tmpDitherMethod + ")");
@@ -34,7 +47,12 @@ function draw () {
 			processing: {
 				greyscaleMethod:	tmpGreyscaleMethod,
 				ditherMethod:		tmpDitherMethod,
-				ditherThreshold:	tmpDitherThreshold
+				ditherThreshold:	tmpDitherThreshold,
+				replaceColours:		tmpReplaceColours,
+				replaceColourMap: {
+					black: tmpReplaceBlack,
+					white: tmpReplaceWhite
+				}
 			}
 		});
 
@@ -56,10 +74,6 @@ worker.addEventListener('message', function (e) {
 	} else if (document.getElementById('rdo_format_gif').checked == true) {
 
 		imageDisplay.src	= displayCanvas.toDataURL("image/gif");
-
-	} else if (document.getElementById('rdo_format_jpeg').checked == true) {
-
-		imageDisplay.src	= displayCanvas.toDataURL("image/jpeg");
 
 	}
 

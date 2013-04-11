@@ -36,6 +36,6 @@ Simple demo of image processing in Javascript using HTML5 and Canvas.
 - Added timers for performance testing
 
 ## Notes
-Takes a lot of learned stuff from my [fractal-thing](https://github.com/ticky/fractal-thing) project (and improves on it significantly).
+Takes a lot of learned stuff from my [fractal-thing](https://github.com/geoffstokes/fractal-thing) project (and improves on it significantly).
 
 Example image is by Keven Law, and [sourced from flickr](http://www.flickr.com/photos/kevenlaw/2308263346/). Image is licensed under Creative Commons Attribution-ShareAlike 2.0 Generic.

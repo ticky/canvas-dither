@@ -16,7 +16,7 @@ Simple demo of image processing in Javascript using HTML5 and Canvas.
 - Create fallback for when web workers are not available
 - Enable drag-and-drop custom image selection
 - Improve compatibility
-- Probably going to re-style to look more like classic Mac OS (currently borrows a lot of design language and ideas from OS X, like [fractal-thing](https://github.com/ticky/fractal-thing).)
+- Probably going to re-style to look more like classic Mac OS (currently borrows a lot of design language and ideas from OS X, like [fractal-thing](https://github.com/geoffstokes/fractal-thing).)
 
 ## Version History
 ### v1.0
